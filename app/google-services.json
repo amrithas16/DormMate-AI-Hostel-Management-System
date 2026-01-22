@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "120683513015",
+    "project_id": "dormmate-22f60",
+    "storage_bucket": "dormmate-22f60.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120683513015:android:5bea54b0522f9db445f932",
+        "android_client_info": {
+          "package_name": "com.example.dormmate_ai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTsPNQ-IpXs8PsaX9c3MGPBO1CzdbqxuY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
