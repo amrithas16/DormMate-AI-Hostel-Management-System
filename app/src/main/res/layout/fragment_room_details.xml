@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_aurora">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView android:id="@+id/tvRoomBack"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="← Room &amp; Assets"
+            android:textColor="@color/electric_violet" android:textSize="16sp"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="🛏️ Room Details"
+            style="@style/GlassTextTitle" android:layout_marginBottom="24dp"/>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:background="@drawable/bg_glass_card" android:orientation="vertical"
+            android:padding="20dp" android:layout_marginBottom="16dp">
+
+            <TextView android:id="@+id/tvRoomNumber"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Room No: —" android:textColor="@color/white"
+                android:textSize="18sp" android:textStyle="bold" android:layout_marginBottom="12dp"/>
+
+            <TextView android:id="@+id/tvFloor"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Floor: —" android:textColor="#CCFFFFFF"
+                android:textSize="15sp" android:layout_marginBottom="8dp"/>
+
+            <TextView android:id="@+id/tvWing"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Hostel Wing: —" android:textColor="#CCFFFFFF" android:textSize="15sp"/>
+        </LinearLayout>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="🔧 Report Asset Damage"
+            android:textColor="@color/white" android:textStyle="bold"
+            android:textSize="18sp" android:layout_marginBottom="16dp"/>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:background="@drawable/bg_glass_card" android:orientation="vertical"
+            android:padding="20dp">
+
+            <EditText android:id="@+id/etAssetName"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:hint="Asset Name (e.g., Chair, Fan)" android:textColor="@color/white"
+                android:textColorHint="#66FFFFFF" android:layout_marginBottom="12dp"/>
+
+            <EditText android:id="@+id/etDamageDescription"
+                android:layout_width="match_parent" android:layout_height="100dp"
+                android:hint="Describe the damage..." android:textColor="@color/white"
+                android:textColorHint="#66FFFFFF" android:gravity="top"
+                android:inputType="textMultiLine" android:layout_marginBottom="16dp"/>
+
+            <Button android:id="@+id/btnSubmitDamage"
+                android:layout_width="match_parent" android:layout_height="52dp"
+                android:text="Submit Report"
+                android:background="@drawable/bg_button_violet" android:textColor="@color/white"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

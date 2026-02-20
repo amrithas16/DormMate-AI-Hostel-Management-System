@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_aurora"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="24dp"
+        android:layout_marginBottom="20dp">
+
+        <TextView android:id="@+id/tvRulesWardenBack"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:paddingEnd="12dp" android:text="← Back"
+            android:textColor="#B39DDB" android:textSize="14sp" />
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="📜 Manage Rules" android:textColor="#FFFFFF"
+            android:textSize="20sp" android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_glass_card"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Edit Hostel Rules (one rule per line):"
+            android:textColor="#B39DDB" android:textSize="12sp" android:layout_marginBottom="8dp" />
+
+        <EditText android:id="@+id/etRulesContent"
+            android:layout_width="match_parent" android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_bento_tile"
+            android:hint="Enter rules, one per line..."
+            android:textColor="#FFFFFF" android:textColorHint="#7B7B9D"
+            android:inputType="textMultiLine" android:gravity="top"
+            android:paddingHorizontal="12dp" android:paddingVertical="12dp"
+            android:textSize="14sp" android:layout_marginBottom="12dp" />
+
+        <Button android:id="@+id/btnSaveRules"
+            android:layout_width="match_parent" android:layout_height="52dp"
+            android:background="@drawable/bg_button_violet"
+            android:text="PUBLISH RULES" android:textColor="#FFFFFF"
+            android:textStyle="bold" android:stateListAnimator="@null" />
+    </LinearLayout>
+</LinearLayout>

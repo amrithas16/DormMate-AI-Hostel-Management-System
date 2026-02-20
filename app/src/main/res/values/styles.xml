@@ -1,0 +1,31 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.DormMate" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/electric_violet</item>
+        <item name="colorPrimaryDark">@color/deep_indigo</item>
+        <item name="colorAccent">@color/neon_cyan</item>
+        <item name="android:windowBackground">@drawable/bg_aurora</item>
+        <item name="android:statusBarColor">@color/aurora_start</item>
+    </style>
+
+    <style name="GlassTextTitle">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="GlassTextBody">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#CCFFFFFF</item> <!-- 80% White -->
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    
+    <style name="GlassButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/bg_glass_card</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="backgroundTint">@color/electric_violet</item>
+    </style>
+</resources>

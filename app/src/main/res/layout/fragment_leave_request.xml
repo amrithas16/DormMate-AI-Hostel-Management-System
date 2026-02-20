@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_aurora">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="← Leave / Gate Pass"
+            android:id="@+id/tvBack"
+            android:textColor="@color/electric_violet"
+            android:textSize="16sp"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apply for Leave"
+            style="@style/GlassTextTitle"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Glass Card Form -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_glass_card"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="From Date" android:textColor="#AAFFFFFF" android:textSize="12sp"/>
+            <EditText android:id="@+id/etFromDate" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:hint="dd/MM/yyyy"
+                android:textColor="@color/white" android:textColorHint="#66FFFFFF"
+                android:layout_marginBottom="16dp" android:focusable="false"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="To Date" android:textColor="#AAFFFFFF" android:textSize="12sp"/>
+            <EditText android:id="@+id/etToDate" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:hint="dd/MM/yyyy"
+                android:textColor="@color/white" android:textColorHint="#66FFFFFF"
+                android:layout_marginBottom="16dp" android:focusable="false"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Reason" android:textColor="#AAFFFFFF" android:textSize="12sp"/>
+            <EditText android:id="@+id/etReason" android:layout_width="match_parent"
+                android:layout_height="120dp" android:hint="Enter reason..."
+                android:textColor="@color/white" android:textColorHint="#66FFFFFF"
+                android:gravity="top" android:inputType="textMultiLine"
+                android:layout_marginBottom="24dp"/>
+
+        </LinearLayout>
+
+        <Button android:id="@+id/btnSubmitLeave"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="20dp"
+            android:text="Submit Request"
+            android:background="@drawable/bg_button_violet"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+
+        <!-- Status Section -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_glass_card"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Request Status" android:textColor="@color/white"
+                android:textStyle="bold" android:textSize="16sp" android:layout_marginBottom="8dp"/>
+
+            <TextView android:id="@+id/tvLeaveStatus"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="No pending requests" android:textColor="#AAFFFFFF"/>
+
+            <Button android:id="@+id/btnViewQR"
+                android:layout_width="match_parent" android:layout_height="52dp"
+                android:layout_marginTop="12dp"
+                android:text="View QR Gate Pass"
+                android:background="@drawable/bg_button_violet"
+                android:textColor="@color/white"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

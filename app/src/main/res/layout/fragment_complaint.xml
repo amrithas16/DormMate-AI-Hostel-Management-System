@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_aurora">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="24dp">
+
+        <TextView android:id="@+id/tvComplaintBack"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="← Complaints" android:textColor="@color/electric_violet"
+            android:textSize="16sp" android:layout_marginBottom="20dp"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="📋 Submit Complaint"
+            style="@style/GlassTextTitle" android:layout_marginBottom="24dp"/>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:background="@drawable/bg_glass_card"
+            android:orientation="vertical" android:padding="20dp">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Category" android:textColor="#AAFFFFFF" android:textSize="12sp"/>
+            <Spinner android:id="@+id/spinnerCategory"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Description" android:textColor="#AAFFFFFF" android:textSize="12sp"/>
+            <EditText android:id="@+id/etComplaintDesc"
+                android:layout_width="match_parent" android:layout_height="130dp"
+                android:hint="Describe your complaint..." android:textColor="@color/white"
+                android:textColorHint="#66FFFFFF" android:gravity="top"
+                android:inputType="textMultiLine" android:layout_marginBottom="16dp"/>
+
+            <Button android:id="@+id/btnSubmitComplaint"
+                android:layout_width="match_parent" android:layout_height="52dp"
+                android:text="Submit Complaint"
+                android:background="@drawable/bg_button_violet" android:textColor="@color/white"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

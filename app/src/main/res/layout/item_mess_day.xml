@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_glass_card"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginBottom="12dp">
+
+    <TextView android:id="@+id/tvDay"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Monday" android:textColor="@color/electric_violet"
+        android:textStyle="bold" android:textSize="16sp" android:layout_marginBottom="8dp"/>
+
+    <TextView android:id="@+id/tvBreakfast"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="🌅 Breakfast: Poha, Tea" android:textColor="#CCFFFFFF"
+        android:textSize="13sp" android:layout_marginBottom="4dp"/>
+
+    <TextView android:id="@+id/tvLunch"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="☀️ Lunch: Dal, Rice, Sabzi" android:textColor="#CCFFFFFF"
+        android:textSize="13sp" android:layout_marginBottom="4dp"/>
+
+    <TextView android:id="@+id/tvDinner"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="🌙 Dinner: Roti, Paneer, Rice" android:textColor="#CCFFFFFF"
+        android:textSize="13sp" android:layout_marginBottom="12dp"/>
+
+    <RatingBar android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/ratingBarStyleSmall"
+        android:numStars="5"
+        android:stepSize="1.0"
+        android:rating="0"
+        android:progressTint="@color/electric_violet"/>
+</LinearLayout>

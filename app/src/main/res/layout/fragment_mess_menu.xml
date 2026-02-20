@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_aurora"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView android:id="@+id/tvMessBack"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="← Mess Menu" android:textColor="@color/electric_violet"
+        android:textSize="16sp" android:layout_marginBottom="20dp"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="🍽️ Weekly Menu"
+        style="@style/GlassTextTitle" android:layout_marginBottom="16dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMessMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

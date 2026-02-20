@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.DormMate">
+
+        <!-- Main Entry -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Student Module -->
+        <activity
+            android:name=".ui.student.StudentDashboardActivity"
+            android:exported="false"
+            android:label="Student Dashboard" />
+
+        <!-- Warden Module -->
+        <activity
+            android:name=".ui.warden.WardenDashboardActivity"
+            android:exported="false"
+            android:label="Warden Dashboard" />
+        <activity
+            android:name=".ui.warden.StudentListActivity"
+            android:exported="false"
+            android:label="Student List" />
+        <activity
+            android:name=".ui.warden.WardenLeaveActivity"
+            android:exported="false"
+            android:label="Leave Requests" />
+        <activity
+            android:name=".ui.warden.WardenComplaintsActivity"
+            android:exported="false"
+            android:label="Complaints" />
+        <activity
+            android:name=".ui.warden.VisitorLogActivity"
+            android:exported="false"
+            android:label="Visitor Log" />
+        <activity
+            android:name=".ui.warden.BroadcastActivity"
+            android:exported="false"
+            android:label="Broadcast" />
+        <activity
+            android:name=".ui.warden.WardenRulesActivity"
+            android:exported="false"
+            android:label="Manage Rules" />
+        <activity
+            android:name=".ui.admin.AdminActivity"
+            android:exported="false"
+            android:label="System Admin" />
+
+        <!-- Emergency Background Service -->
+        <service
+            android:name=".ui.warden.EmergencyAlertService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
+    </application>
+
+</manifest>
