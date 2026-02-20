@@ -51,18 +51,16 @@
         android:textColorHint="#80FFFFFF"
         android:text="123123" />
 
-    <EditText
-        android:id="@+id/etNewStudentRoom"
+    <TextView
+        android:id="@+id/tvStatusMessage"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/bg_glass_input"
-        android:hint="Room Number (e.g. 101)"
-        android:inputType="text"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:textColor="@color/white"
-        android:textColorHint="#99FFFFFF" />
+        android:gravity="center"
+        android:textColor="#FF5252"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <TextView
         android:layout_width="match_parent"

@@ -72,22 +72,11 @@ public class StudentListActivity extends AppCompatActivity {
         final EditText etName = dialogView.findViewById(R.id.etNewStudentName);
         final EditText etEmail = dialogView.findViewById(R.id.etNewStudentEmail);
         final EditText etPass = dialogView.findViewById(R.id.etNewStudentPassword);
-        final EditText etRoomNumber = dialogView.findViewById(R.id.etNewStudentRoom);
+        final TextView tvStatusMessage = dialogView.findViewById(R.id.tvStatusMessage);
 
         androidx.appcompat.app.AlertDialog dialog = new androidx.appcompat.app.AlertDialog.Builder(this)
                 .setView(dialogView)
-                .setPositiveButton("ENROLL", (d, which) -> {
-                    String name = etName.getText().toString().trim();
-                    String email = etEmail.getText().toString().trim();
-                    String password = etPass.getText().toString().trim();
-                    String roomNumber = etRoomNumber.getText().toString().trim();
-
-                    if (name.isEmpty() || email.isEmpty() || password.isEmpty() || roomNumber.isEmpty()) {
-                        Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    createStudentAccount(name, email, password, roomNumber);
-                })
+                .setPositiveButton("ENROLL", null) // Set to null to prevent auto-dismissal
                 .setNegativeButton("Cancel", null)
                 .create();
 
@@ -95,28 +84,73 @@ public class StudentListActivity extends AppCompatActivity {
             dialog.getWindow().setBackgroundDrawable(
                     new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
         }
+
+        dialog.setOnShowListener(new android.content.DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(android.content.DialogInterface dialogInterface) {
+                Button button = ((androidx.appcompat.app.AlertDialog) dialog)
+                        .getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String name = etName.getText().toString().trim();
+                        String email = etEmail.getText().toString().trim();
+                        String password = etPass.getText().toString().trim();
+
+                        boolean isValid = true;
+
+                        if (name.isEmpty()) {
+                            etName.setError("Name is required");
+                            isValid = false;
+                        }
+
+                        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                            etEmail.setError("Valid email is required");
+                            isValid = false;
+                        }
+
+                        if (!isValid) {
+                            return;
+                        }
+
+                        createStudentAccount(name, email, password, etName, etEmail, etPass, tvStatusMessage);
+                    }
+                });
+            }
+        });
+
         dialog.show();
     }
 
-    private void createStudentAccount(String name, String email, String password, String roomNumber) {
-        // In the new system, we don't create an Auth account here.
-        // Instead, we save to 'pre_approved_students' for the student to activate
-        // later.
-        Map<String, Object> invitation = new HashMap<>();
-        invitation.put("name", name);
-        invitation.put("email", email);
-        invitation.put("password", password);
-        invitation.put("roomNumber", roomNumber);
-        invitation.put("role", "Student");
-        invitation.put("createdAt", com.google.firebase.Timestamp.now());
+    private void createStudentAccount(String name, String email, String password, EditText etName, EditText etEmail,
+            EditText etPass, TextView tvStatusMessage) {
+        Map<String, Object> newStudent = new HashMap<>();
+        newStudent.put("name", name);
+        newStudent.put("email", email);
+        newStudent.put("password", password);
+        newStudent.put("role", "Student");
+        newStudent.put("createdAt", com.google.firebase.Timestamp.now());
 
-        db.collection("pre_approved_students").document(email).set(invitation)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(this, "Invitation sent to " + email, Toast.LENGTH_LONG).show();
-                    // Clear fields
+        db.collection("pre_approved_students").document(email).set(newStudent)
+                .addOnSuccessListener(new com.google.android.gms.tasks.OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(StudentListActivity.this, "Student added to pre-approval list",
+                                Toast.LENGTH_LONG).show();
+                        // Clear fields and reset
+                        etName.setText("");
+                        etEmail.setText("");
+                        etPass.setText("123123");
+                        tvStatusMessage.setText("User acc created. Student needs to login via this new cred.");
+                        tvStatusMessage.setVisibility(View.VISIBLE);
+                    }
                 })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Failed to send invitation: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                .addOnFailureListener(new com.google.android.gms.tasks.OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(StudentListActivity.this, "Failed to add student: " + e.getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                    }
                 });
     }
 
@@ -127,37 +161,47 @@ public class StudentListActivity extends AppCompatActivity {
         // 1. Listen to Activated Students
         db.collection("users")
                 .whereEqualTo("role", "Student")
-                .addSnapshotListener((snapshots, e) -> {
-                    if (e != null) {
-                        Toast.makeText(this, "Profile Query Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    if (snapshots != null) {
-                        activatedMap.clear();
-                        for (DocumentSnapshot doc : snapshots.getDocuments()) {
-                            String email = doc.getString("email");
-                            if (email != null)
-                                activatedMap.put(email, doc);
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@androidx.annotation.Nullable QuerySnapshot snapshots,
+                            @androidx.annotation.Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Toast.makeText(StudentListActivity.this, "Profile Query Failed: " + e.getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                            return;
                         }
-                        mergeAndDisplay();
+                        if (snapshots != null) {
+                            activatedMap.clear();
+                            for (DocumentSnapshot doc : snapshots.getDocuments()) {
+                                String email = doc.getString("email");
+                                if (email != null)
+                                    activatedMap.put(email, doc);
+                            }
+                            mergeAndDisplay();
+                        }
                     }
                 });
 
         // 2. Listen to Pending Invitations
         db.collection("pre_approved_students")
-                .addSnapshotListener((snapshots, e) -> {
-                    if (e != null) {
-                        Toast.makeText(this, "Invitation Query Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    if (snapshots != null) {
-                        invitationMap.clear();
-                        for (DocumentSnapshot doc : snapshots.getDocuments()) {
-                            String email = doc.getString("email");
-                            if (email != null)
-                                invitationMap.put(email, doc);
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@androidx.annotation.Nullable QuerySnapshot snapshots,
+                            @androidx.annotation.Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Toast.makeText(StudentListActivity.this, "Invitation Query Failed: " + e.getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                            return;
                         }
-                        mergeAndDisplay();
+                        if (snapshots != null) {
+                            invitationMap.clear();
+                            for (DocumentSnapshot doc : snapshots.getDocuments()) {
+                                String email = doc.getString("email");
+                                if (email != null)
+                                    invitationMap.put(email, doc);
+                            }
+                            mergeAndDisplay();
+                        }
                     }
                 });
     }
@@ -189,44 +233,18 @@ public class StudentListActivity extends AppCompatActivity {
             for (DocumentSnapshot doc : allStudents) {
                 String name = doc.getString("name") != null ? doc.getString("name").toLowerCase() : "";
                 String email = doc.getString("email") != null ? doc.getString("email").toLowerCase() : "";
-                String room = doc.getString("roomNumber") != null ? doc.getString("roomNumber").toLowerCase() : "";
-                if (room.isEmpty())
-                    room = doc.getString("room") != null ? doc.getString("room").toLowerCase() : "";
 
-                if (name.contains(q) || email.contains(q) || room.contains(q)) {
+                if (name.contains(q) || email.contains(q)) {
                     filteredStudents.add(doc);
                 }
             }
         }
-        runOnUiThread(() -> adapter.notifyDataSetChanged());
-    }
-
-    private void showRoomAllocationDialog(DocumentSnapshot studentDoc) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Room Details: " + studentDoc.getString("name"));
-
-        android.widget.LinearLayout layout = new android.widget.LinearLayout(this);
-        layout.setOrientation(android.widget.LinearLayout.VERTICAL);
-        layout.setPadding(50, 20, 50, 20);
-
-        EditText etRoom = new EditText(this);
-        etRoom.setHint("Room Number");
-        String currentRoom = studentDoc.getString("roomNumber");
-        if (currentRoom == null)
-            currentRoom = studentDoc.getString("room");
-        etRoom.setText(currentRoom);
-        layout.addView(etRoom);
-
-        builder.setView(layout);
-        builder.setPositiveButton("SAVE", (dialog, which) -> {
-            String newRoom = etRoom.getText().toString().trim();
-            if (!newRoom.isEmpty()) {
-                studentDoc.getReference().update("roomNumber", newRoom, "room", newRoom)
-                        .addOnSuccessListener(unused -> Toast.makeText(this, "Updated", Toast.LENGTH_SHORT).show());
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter.notifyDataSetChanged();
             }
         });
-        builder.setNegativeButton("Cancel", null);
-        builder.show();
     }
 
     @Override
@@ -256,15 +274,7 @@ public class StudentListActivity extends AppCompatActivity {
 
             holder.tvName.setText(name + (isInvitation ? " (Invitation)" : ""));
             holder.tvEmail.setText(email);
-
-            String room = doc.getString("roomNumber");
-            if (room == null)
-                room = doc.getString("room");
-            holder.tvRoom.setText("Room " + (room != null ? room : "—"));
-
-            holder.tvFloor.setText("Floor " + (doc.getString("floor") != null ? doc.getString("floor") : "—"));
             holder.tvAvatar.setText(!name.isEmpty() ? String.valueOf(name.charAt(0)).toUpperCase() : "?");
-            holder.btnAllocate.setOnClickListener(v -> showRoomAllocationDialog(doc));
         }
 
         @Override
@@ -273,17 +283,13 @@ public class StudentListActivity extends AppCompatActivity {
         }
 
         class VH extends RecyclerView.ViewHolder {
-            TextView tvName, tvEmail, tvRoom, tvFloor, tvAvatar;
-            Button btnAllocate;
+            TextView tvName, tvEmail, tvAvatar;
 
             VH(@NonNull View view) {
                 super(view);
                 tvName = view.findViewById(R.id.tvStudentName);
                 tvEmail = view.findViewById(R.id.tvStudentEmail);
-                tvRoom = view.findViewById(R.id.tvStudentRoom);
-                tvFloor = view.findViewById(R.id.tvStudentFloor);
                 tvAvatar = view.findViewById(R.id.tvStudentAvatar);
-                btnAllocate = view.findViewById(R.id.btnAllocateRoom);
             }
         }
     }

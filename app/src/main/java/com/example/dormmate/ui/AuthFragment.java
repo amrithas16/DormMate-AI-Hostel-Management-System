@@ -124,83 +124,145 @@ public class AuthFragment extends Fragment {
         }
 
         auth.signInWithEmailAndPassword(email, password)
-                .addOnSuccessListener(authResult -> {
-                    String uid = authResult.getUser().getUid();
-                    db.collection("users").document(uid).get()
-                            .addOnSuccessListener(doc -> {
-                                if (doc.exists()) {
-                                    String role = doc.getString("role");
-                                    if (role != null) {
-                                        navigateToDashboard(role);
-                                    } else {
-                                        Toast.makeText(getContext(), "Profile corrupted: role missing",
-                                                Toast.LENGTH_LONG).show();
-                                        auth.signOut();
-                                    }
-                                } else {
-                                    Toast.makeText(getContext(), "Contact Admin: Profile Not Found", Toast.LENGTH_LONG)
-                                            .show();
-                                    auth.signOut();
-                                }
-                            })
-                            .addOnFailureListener(e -> {
-                                Toast.makeText(getContext(), "Database error: " + e.getMessage(), Toast.LENGTH_SHORT)
-                                        .show();
-                                auth.signOut();
-                            });
-                })
-                .addOnFailureListener(e -> {
-                    if (e instanceof com.google.firebase.auth.FirebaseAuthInvalidUserException) {
-                        String errorCode = ((com.google.firebase.auth.FirebaseAuthInvalidUserException) e)
-                                .getErrorCode();
-                        if ("ERROR_USER_NOT_FOUND".equals(errorCode)) {
-                            // Check for invitation activation
-                            activatePreApprovedAccount(email, password);
-                        } else {
-                            Toast.makeText(getContext(), "Auth Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        Toast.makeText(getContext(), "Login Failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                .addOnSuccessListener(
+                        new com.google.android.gms.tasks.OnSuccessListener<com.google.firebase.auth.AuthResult>() {
+                            @Override
+                            public void onSuccess(com.google.firebase.auth.AuthResult authResult) {
+                                String uid = authResult.getUser().getUid();
+                                db.collection("users").document(uid).get()
+                                        .addOnSuccessListener(
+                                                new com.google.android.gms.tasks.OnSuccessListener<com.google.firebase.firestore.DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onSuccess(
+                                                            com.google.firebase.firestore.DocumentSnapshot doc) {
+                                                        if (doc.exists()) {
+                                                            String role = doc.getString("role");
+                                                            if (role != null) {
+                                                                navigateToDashboard(role);
+                                                            } else {
+                                                                Toast.makeText(getContext(),
+                                                                        "Profile corrupted: role missing",
+                                                                        Toast.LENGTH_LONG).show();
+                                                                auth.signOut();
+                                                            }
+                                                        } else {
+                                                            Toast.makeText(getContext(),
+                                                                    "Contact Admin: Profile Not Found",
+                                                                    Toast.LENGTH_LONG).show();
+                                                            auth.signOut();
+                                                        }
+                                                    }
+                                                })
+                                        .addOnFailureListener(new com.google.android.gms.tasks.OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(getContext(), "Database error: " + e.getMessage(),
+                                                        Toast.LENGTH_SHORT).show();
+                                                auth.signOut();
+                                            }
+                                        });
+                            }
+                        })
+                .addOnFailureListener(new com.google.android.gms.tasks.OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // IMMEDIATELY Fallback to Pre-Approval verification on ANY Auth Failure
+                        activatePreApprovedAccount(email, password);
                     }
                 });
     }
 
     private void activatePreApprovedAccount(String email, String password) {
         db.collection("pre_approved_students").document(email).get()
-                .addOnSuccessListener(doc -> {
-                    if (doc.exists()) {
-                        String savedPass = doc.getString("password");
-                        if (password.equals(savedPass)) {
-                            // Match found! Create the real account
-                            auth.createUserWithEmailAndPassword(email, password)
-                                    .addOnSuccessListener(authResult -> {
-                                        String uid = authResult.getUser().getUid();
-                                        Map<String, Object> studentData = doc.getData();
-                                        if (studentData != null) {
-                                            studentData.put("uid", uid);
-                                            studentData.put("activatedAt", com.google.firebase.Timestamp.now());
+                .addOnSuccessListener(
+                        new com.google.android.gms.tasks.OnSuccessListener<com.google.firebase.firestore.DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(com.google.firebase.firestore.DocumentSnapshot doc) {
+                                if (doc.exists()) {
+                                    String savedPass = doc.getString("password");
+                                    // Verification step
+                                    if (password.equals(savedPass)) {
+                                        // Match found! Create the real account
+                                        auth.createUserWithEmailAndPassword(email, password)
+                                                .addOnSuccessListener(
+                                                        new com.google.android.gms.tasks.OnSuccessListener<com.google.firebase.auth.AuthResult>() {
+                                                            @Override
+                                                            public void onSuccess(
+                                                                    com.google.firebase.auth.AuthResult authResult) {
+                                                                String uid = authResult.getUser().getUid();
+                                                                String name = doc.getString("name");
 
-                                            // 1. Create official user doc
-                                            db.collection("users").document(uid).set(studentData)
-                                                    .addOnSuccessListener(aVoid -> {
-                                                        // 2. Delete invitation
-                                                        db.collection("pre_approved_students").document(email).delete();
-                                                        // 3. Go to Dashboard
-                                                        navigateToDashboard("Student");
-                                                    });
-                                        }
-                                    })
-                                    .addOnFailureListener(err -> Toast.makeText(getContext(),
-                                            "Activation failed: " + err.getMessage(), Toast.LENGTH_LONG).show());
-                        } else {
-                            Toast.makeText(getContext(), "Invalid Credentials", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Toast.makeText(getContext(), "Contact Admin: Profile Not Found", Toast.LENGTH_LONG).show();
+                                                                Map<String, Object> newStudentProfile = new HashMap<>();
+                                                                newStudentProfile.put("email", email);
+                                                                newStudentProfile.put("name",
+                                                                        name != null ? name : "Student");
+                                                                newStudentProfile.put("role", "Student"); // Mandatory
+                                                                                                          // student
+                                                                                                          // setup
+                                                                                                          // payload
+
+                                                                // 1. Create official user doc
+                                                                db.collection("users").document(uid)
+                                                                        .set(newStudentProfile)
+                                                                        .addOnSuccessListener(
+                                                                                new com.google.android.gms.tasks.OnSuccessListener<Void>() {
+                                                                                    @Override
+                                                                                    public void onSuccess(Void aVoid) {
+                                                                                        // 2. Delete invitation
+                                                                                        db.collection(
+                                                                                                "pre_approved_students")
+                                                                                                .document(email)
+                                                                                                .delete();
+                                                                                        // 3. Show Success Toast
+                                                                                        Toast.makeText(getContext(),
+                                                                                                "Account activated successfully.",
+                                                                                                Toast.LENGTH_LONG)
+                                                                                                .show();
+                                                                                        // 4. Go to Dashboard
+                                                                                        navigateToDashboard("Student");
+                                                                                    }
+                                                                                })
+                                                                        .addOnFailureListener(
+                                                                                new com.google.android.gms.tasks.OnFailureListener() {
+                                                                                    @Override
+                                                                                    public void onFailure(
+                                                                                            @NonNull Exception error) {
+                                                                                        Toast.makeText(getContext(),
+                                                                                                "Failed to create user profile: "
+                                                                                                        + error.getMessage(),
+                                                                                                Toast.LENGTH_LONG)
+                                                                                                .show();
+                                                                                    }
+                                                                                });
+                                                            }
+                                                        })
+                                                .addOnFailureListener(
+                                                        new com.google.android.gms.tasks.OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception err) {
+                                                                Toast.makeText(getContext(),
+                                                                        "Activation failed: " + err.getMessage(),
+                                                                        Toast.LENGTH_LONG).show();
+                                                            }
+                                                        });
+                                    } else {
+                                        Toast.makeText(getContext(), "Invalid credentials or account not found.",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    // If no document is found.
+                                    Toast.makeText(getContext(), "Invalid credentials or account not found.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        })
+                .addOnFailureListener(new com.google.android.gms.tasks.OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception err) {
+                        Toast.makeText(getContext(), "Invalid credentials or account not found.", Toast.LENGTH_SHORT)
+                                .show();
                     }
-                })
-                .addOnFailureListener(
-                        err -> Toast.makeText(getContext(), "Activation query failed", Toast.LENGTH_SHORT).show());
+                });
     }
 
     private void navigateToDashboard(String role) {
