@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A0A1A"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvWardenMessBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="← Update Mess Menu"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_glass_card"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Day"
+            android:textColor="#AAAAAA"
+            android:textSize="12sp"
+            android:layout_marginBottom="8dp" />
+
+        <Spinner
+            android:id="@+id/spinnerDay"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#1AFFFFFF"
+            android:layout_marginBottom="24dp" />
+
+        <EditText
+            android:id="@+id/etBreakfast"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:background="#1AFFFFFF"
+            android:hint="🌅 Breakfast Items"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#80FFFFFF"
+            android:paddingHorizontal="16dp"
+            android:inputType="textMultiLine"
+            android:gravity="top|start"
+            android:paddingTop="12dp" />
+
+        <EditText
+            android:id="@+id/etLunch"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:background="#1AFFFFFF"
+            android:hint="☀️ Lunch Items"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#80FFFFFF"
+            android:paddingHorizontal="16dp"
+            android:inputType="textMultiLine"
+            android:gravity="top|start"
+            android:paddingTop="12dp" />
+
+        <EditText
+            android:id="@+id/etDinner"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:background="#1AFFFFFF"
+            android:hint="🌙 Dinner Items"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#80FFFFFF"
+            android:paddingHorizontal="16dp"
+            android:inputType="textMultiLine"
+            android:gravity="top|start"
+            android:paddingTop="12dp" />
+
+        <EditText
+            android:id="@+id/etSpecial"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="24dp"
+            android:background="#1AFFFFFF"
+            android:hint="✨ Special (Optional)"
+            android:textColor="#FFE082"
+            android:textColorHint="#80FFE082"
+            android:paddingHorizontal="16dp"
+            android:inputType="textMultiLine"
+            android:gravity="top|start"
+            android:paddingTop="12dp" />
+
+        <Button
+            android:id="@+id/btnSaveMenu"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/bg_button_violet"
+            android:text="Update Menu"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</LinearLayout>
