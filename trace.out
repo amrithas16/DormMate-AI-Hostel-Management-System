@@ -1,0 +1,32 @@
+﻿03-11 03:01:23.451  6675  6675 E AndroidRuntime: FATAL EXCEPTION: main
+03-11 03:01:23.451  6675  6675 E AndroidRuntime: Process: com.example.dormmate, PID: 6675
+03-11 03:01:23.451  6675  6675 E AndroidRuntime: java.lang.NullPointerException: Parameter specified as non-null is null: method com.google.ai.client.generativeai.GenerativeModel.<init>, parameter requestOptions
+03-11 03:01:23.451  6675  6675 E AndroidRuntime: 	at com.google.ai.client.generativeai.GenerativeModel.<init>(Unknown Source:18)
+03-11 03:01:23.451  6675  6675 E AndroidRuntime: 	at com.example.dormmate.ui.ChatbotManager.<init>(ChatbotManager.java:34)
+03-11 03:01:23.451  6675  6675 E AndroidRuntime: 	at com.example.dormmate.ui.ChatbotActivity$1.lambda$onError$1$com-example-dormmate-ui-ChatbotActivity$1(ChatbotActivity.java:103)
+03-11 03:01:23.451  6675  6675 E AndroidRuntime: 	at com.example.dormmate.ui.ChatbotActivity$1$$ExternalSyntheticLambda0.run(Unknown Source:4)
+03-11 03:01:23.451  6675  6675 E AndroidRuntime: 	at android.app.Activity.runOnUiThread(Activity.java:8158)
+03-11 03:01:23.451  6675  6675 E AndroidRuntime: 	at com.example.dormmate.ui.ChatbotActivity$1.onError(ChatbotActivity.java:98)
+03-11 03:01:23.451  6675  6675 E AndroidRuntime: 	at com.example.dormmate.ui.HostelContextBuilder$$ExternalSyntheticLambda1.onFailure(Unknown Source:2)
+03-11 03:01:23.451  6675  6675 E AndroidRuntime: 	at com.google.android.gms.tasks.zzk.run(com.google.android.gms:play-services-tasks@@18.0.2:1)
+03-11 03:01:23.451  6675  6675 E AndroidRuntime: 	at android.os.Handler.handleCallback(Handler.java:995)
+03-11 03:01:23.451  6675  6675 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:103)
+03-11 03:01:23.451  6675  6675 E AndroidRuntime: 	at android.os.Looper.loopOnce(Looper.java:248)
+03-11 03:01:23.451  6675  6675 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:338)
+03-11 03:01:23.451  6675  6675 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+03-11 03:01:23.451  6675  6675 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+03-11 03:01:23.451  6675  6675 E AndroidRuntime: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+03-11 03:01:23.451  6675  6675 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+03-11 03:01:23.456   812  1387 W ActivityTaskManager:   Force finishing activity com.example.dormmate/.ui.ChatbotActivity
+03-11 03:01:23.456   812  6758 I DropBoxManagerService: add tag=data_app_crash isTagEnabled=true flags=0x2
+03-11 03:01:23.459  1104  1200 V WindowManagerShell: Transition requested (#116): android.os.BinderProxy@6c0331c TransitionRequestInfo { type = CLOSE, triggerTask = TaskInfo{userId=0 taskId=78 effectiveUid=10221 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.example.dormmate/.MainActivity } baseActivity=ComponentInfo{com.example.dormmate/com.example.dormmate.ui.warden.WardenDashboardActivity} topActivity=ComponentInfo{com.example.dormmate/com.example.dormmate.ui.ChatbotActivity} origActivity=null realActivity=ComponentInfo{com.example.dormmate/com.example.dormmate.MainActivity} numActivities=2 lastActiveTime=3705461 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@3107b25} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=ActivityInfo{727e4fa com.example.dormmate.ui.ChatbotActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isVisibleRequested=true isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=Rect(261, 570 - 819, 1650) capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false eligibleForLetterboxEducation= false isLetterboxEducationEnabled= true isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 1080, 2154) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { freeformCameraCompatMode=inactive}} topActivityMainWindowFrame=null}, pipChange = null, remoteTransition = null, displayChange = null, flags = 16, debugId = 116 }
+03-11 03:01:23.460   622   642 I BpBinder: onLastStrongRef automatically unlinking death recipients: 
+03-11 03:01:23.460   812  1387 W ActivityTaskManager:   Force finishing activity com.example.dormmate/.ui.warden.WardenDashboardActivity
+03-11 03:01:23.464   812   849 I ActivityManager: Showing crash dialog for package com.example.dormmate u0
+03-11 03:01:23.531   812   849 D CoreBackPreview: Window{6e2ba2c u0 Application Error: com.example.dormmate}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.WindowOnBackInvokedDispatcher$OnBackInvokedCallbackWrapper@b3dffa9, mPriority=-1, mIsAnimationCallback=false, mOverrideBehavior=0}
+03-11 03:01:23.678   571  1362 I RanchuHwc: logCompositionFallbackIfChanged: layer 324 CompositionType fallback from 2 to 1
+03-11 03:01:23.694   571  1362 I RanchuHwc: logCompositionFallbackIfChanged: layer 325 CompositionType fallback from 3 to 1
+03-11 03:01:23.713   812   985 D WifiClientModeImpl[52143:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=11 freq=2447 RxLinkSpeed=2
+03-11 03:01:23.713   812   985 D WifiDataStall: tx tput in kbps: 11000
+03-11 03:01:23.713   812   985 D WifiDataStall: rx tput in kbps: 11000
+03-11 03:01:23.713   812   985 V WifiConfigManager: Updating scan detail cache freq=2447 BSSID=00:13:10:85:fe:01 RSSI=-50 for "AndroidWifi"NONE
