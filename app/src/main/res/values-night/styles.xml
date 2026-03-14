@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme (Night Mode) -->
+    <style name="Theme.DormMate" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/electric_violet</item>
+        <item name="colorPrimaryDark">@color/night_bg_start</item>
+        <item name="colorAccent">@color/neon_cyan</item>
+        <item name="android:windowBackground">@drawable/bg_aurora</item>
+        <item name="android:statusBarColor">@color/night_bg_start</item>
+
+        <!-- Custom Glass Attributes -->
+        <item name="auroraStart">@color/night_bg_start</item>
+        <item name="auroraMid">@color/night_bg_mid</item>
+        <item name="auroraEnd">@color/night_bg_end</item>
+        <item name="glassCardBg">@color/night_glass_bg</item>
+        <item name="cardStroke">@color/night_glass_border</item>
+        <item name="textPrimary">@color/night_text_primary</item>
+        <item name="textSecondary">@color/night_text_secondary</item>
+        <item name="surfaceColor">#1A1A2E</item>
+    </style>
+</resources>

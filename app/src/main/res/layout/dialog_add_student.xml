@@ -16,59 +16,163 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/etNewStudentName"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="16dp"
-        android:background="#1AFFFFFF"
-        android:hint="Full Name"
-        android:paddingHorizontal="16dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#80FFFFFF" />
-
-    <EditText
-        android:id="@+id/etNewStudentEmail"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="16dp"
-        android:background="#1AFFFFFF"
-        android:hint="Email Address"
-        android:inputType="textEmailAddress"
-        android:paddingHorizontal="16dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#80FFFFFF" />
-
-    <EditText
-        android:id="@+id/etNewStudentPassword"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#1AFFFFFF"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:paddingHorizontal="16dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#80FFFFFF"
-        android:text="123123" />
-
-    <TextView
-        android:id="@+id/tvStatusMessage"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
-        android:textColor="#FF5252"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
+        android:fadeScrollbars="false">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:gravity="center"
-        android:text="Warden can set a custom temporary password"
-        android:textColor="#AAFFFFFF"
-        android:textSize="12sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/etNewStudentName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="16dp"
+                android:background="#1AFFFFFF"
+                android:hint="Full Name"
+                android:paddingHorizontal="16dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#80FFFFFF" />
+
+            <EditText
+                android:id="@+id/etNewStudentEmail"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="16dp"
+                android:background="#1AFFFFFF"
+                android:hint="Email Address"
+                android:inputType="textEmailAddress"
+                android:paddingHorizontal="16dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#80FFFFFF" />
+
+            <EditText
+                android:id="@+id/etNewStudentPhone"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="16dp"
+                android:background="#1AFFFFFF"
+                android:hint="Phone Number"
+                android:inputType="phone"
+                android:paddingHorizontal="16dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#80FFFFFF" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <EditText
+                    android:id="@+id/etNewStudentAge"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:background="#1AFFFFFF"
+                    android:hint="Age"
+                    android:inputType="number"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#80FFFFFF" />
+
+                <EditText
+                    android:id="@+id/etNewStudentDOB"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:background="#1AFFFFFF"
+                    android:hint="DOB (DD/MM/YYYY)"
+                    android:inputType="date"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#80FFFFFF" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <EditText
+                    android:id="@+id/etNewStudentCourse"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:background="#1AFFFFFF"
+                    android:hint="Course"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#80FFFFFF" />
+
+                <EditText
+                    android:id="@+id/etNewStudentYearSem"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:background="#1AFFFFFF"
+                    android:hint="Year/Sem"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#80FFFFFF" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/etNewStudentParentsDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="50dp"
+                android:layout_marginBottom="16dp"
+                android:background="#1AFFFFFF"
+                android:hint="Parents Details (Name &amp; Contact)"
+                android:inputType="textMultiLine"
+                android:gravity="top|start"
+                android:padding="16dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#80FFFFFF" />
+
+            <EditText
+                android:id="@+id/etNewStudentPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="16dp"
+                android:background="#1AFFFFFF"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingHorizontal="16dp"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#80FFFFFF"
+                android:text="123123" />
+
+            <TextView
+                android:id="@+id/tvStatusMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:textColor="#FF5252"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:text="Warden can set a custom temporary password"
+                android:textColor="#AAFFFFFF"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

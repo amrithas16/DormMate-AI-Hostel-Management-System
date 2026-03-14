@@ -32,10 +32,20 @@
         android:id="@+id/btnOptionUpdateDetails"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="12dp"
         android:background="#33FFFFFF"
         android:text="Update Details"
         android:textColor="#FFFFFF"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btnOptionDeleteStudent"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+        android:background="#33FF5252"
+        android:text="Delete Student"
+        android:textColor="#FF5252"
         android:textSize="14sp" />
 
 </LinearLayout>

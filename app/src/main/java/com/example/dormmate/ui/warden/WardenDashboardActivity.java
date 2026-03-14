@@ -73,13 +73,13 @@ public class WardenDashboardActivity extends AppCompatActivity {
                 findViewById(R.id.tileComplaints).setOnClickListener(
                                 v -> startActivity(new Intent(this, WardenComplaintsActivity.class)));
                 findViewById(R.id.tileVisitor)
-                                .setOnClickListener(v -> startActivity(new Intent(this, VisitorLogActivity.class)));
+                                .setOnClickListener(v -> startActivity(new Intent(this, VisitorManagementActivity.class)));
                 findViewById(R.id.tileBroadcast)
                                 .setOnClickListener(v -> startActivity(new Intent(this, BroadcastActivity.class)));
                 findViewById(R.id.tileRules)
                                 .setOnClickListener(v -> startActivity(new Intent(this, WardenRulesActivity.class)));
-                findViewById(R.id.tileFees).setOnClickListener(v -> Toast.makeText(this,
-                                "Fees Management — assign fees per student in Firestore", Toast.LENGTH_LONG).show());
+                findViewById(R.id.tileFees).setOnClickListener(v -> startActivity(
+                                new Intent(this, com.example.dormmate.ui.warden.WardenFeeGenerationActivity.class)));
                 findViewById(R.id.tileMessMenu)
                                 .setOnClickListener(v -> startActivity(new Intent(this, WardenMessMenuActivity.class)));
                 findViewById(R.id.tileChatbot)
@@ -90,6 +90,8 @@ public class WardenDashboardActivity extends AppCompatActivity {
                 findViewById(R.id.tileMessages)
                                 .setOnClickListener(v -> startActivity(
                                                 new Intent(this, com.example.dormmate.ui.ChatListActivity.class)));
+                findViewById(R.id.tileAttendance)
+                                .setOnClickListener(v -> startActivity(new Intent(this, AttendanceQRActivity.class)));
 
                 // Card navigation (Stats cards)
                 findViewById(R.id.cardOccupancy)

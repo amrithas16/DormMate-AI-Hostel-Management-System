@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class ProfileFragment extends Fragment {
 
-    private EditText etName, etEmail, etAddress, etPassword;
+    private EditText etName, etEmail, etAddress, etPassword, etPhone, etAge, etDOB, etCourse, etYearSem, etParentsDetails;
     private Button btnSave;
     private TextView tvBack, tvAvatar;
     private FirebaseFirestore db;
@@ -44,6 +44,12 @@ public class ProfileFragment extends Fragment {
 
         etName = view.findViewById(R.id.etProfileName);
         etEmail = view.findViewById(R.id.etProfileEmail);
+        etPhone = view.findViewById(R.id.etProfilePhone);
+        etAge = view.findViewById(R.id.etProfileAge);
+        etDOB = view.findViewById(R.id.etProfileDOB);
+        etCourse = view.findViewById(R.id.etProfileCourse);
+        etYearSem = view.findViewById(R.id.etProfileYearSem);
+        etParentsDetails = view.findViewById(R.id.etProfileParentsDetails);
         etAddress = view.findViewById(R.id.etProfileAddress);
         etPassword = view.findViewById(R.id.etProfilePassword);
         btnSave = view.findViewById(R.id.btnSaveProfile);
@@ -69,6 +75,12 @@ public class ProfileFragment extends Fragment {
                 .addOnSuccessListener(doc -> {
                     String name = doc.getString("name");
                     String address = doc.getString("address");
+                    String phone = doc.getString("phone");
+                    String age = doc.getString("age");
+                    String dob = doc.getString("dob");
+                    String course = doc.getString("course");
+                    String yearSem = doc.getString("yearSem");
+                    String parentsDetails = doc.getString("parentsDetails");
 
                     if (name != null) {
                         etName.setText(name);
@@ -77,8 +89,13 @@ public class ProfileFragment extends Fragment {
                     } else if (user.getEmail() != null) {
                         tvAvatar.setText(String.valueOf(user.getEmail().charAt(0)).toUpperCase());
                     }
-                    if (address != null)
-                        etAddress.setText(address);
+                    if (address != null) etAddress.setText(address);
+                    if (phone != null) etPhone.setText(phone);
+                    if (age != null) etAge.setText(age);
+                    if (dob != null) etDOB.setText(dob);
+                    if (course != null) etCourse.setText(course);
+                    if (yearSem != null) etYearSem.setText(yearSem);
+                    if (parentsDetails != null) etParentsDetails.setText(parentsDetails);
                 });
     }
 
@@ -100,6 +117,12 @@ public class ProfileFragment extends Fragment {
         Map<String, Object> updates = new HashMap<>();
         updates.put("name", name);
         updates.put("address", address);
+        updates.put("phone", etPhone.getText().toString().trim());
+        updates.put("age", etAge.getText().toString().trim());
+        updates.put("dob", etDOB.getText().toString().trim());
+        updates.put("course", etCourse.getText().toString().trim());
+        updates.put("yearSem", etYearSem.getText().toString().trim());
+        updates.put("parentsDetails", etParentsDetails.getText().toString().trim());
 
         db.collection("users").document(user.getUid())
                 .update(updates)

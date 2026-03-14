@@ -1,24 +1,33 @@
 <resources>
-    <!-- Base application theme. -->
+    <!-- Base application theme (Day Mode) -->
     <style name="Theme.DormMate" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/electric_violet</item>
-        <item name="colorPrimaryDark">@color/deep_indigo</item>
+        <item name="colorPrimaryDark">@color/day_bg_start</item>
         <item name="colorAccent">@color/neon_cyan</item>
         <item name="android:windowBackground">@drawable/bg_aurora</item>
-        <item name="android:statusBarColor">@color/aurora_start</item>
+        <item name="android:statusBarColor">@color/day_bg_start</item>
+
+        <!-- Custom Glass Attributes -->
+        <item name="auroraStart">@color/day_bg_start</item>
+        <item name="auroraMid">@color/day_bg_mid</item>
+        <item name="auroraEnd">@color/day_bg_end</item>
+        <item name="glassCardBg">@color/day_glass_bg</item>
+        <item name="cardStroke">@color/day_glass_border</item>
+        <item name="textPrimary">@color/day_text_primary</item>
+        <item name="textSecondary">@color/day_text_secondary</item>
+        <item name="surfaceColor">#FFFFFF</item>
     </style>
 
     <style name="GlassTextTitle">
         <item name="android:textSize">22sp</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">?attr/textPrimary</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="GlassTextBody">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">#CCFFFFFF</item> <!-- 80% White -->
+        <item name="android:textColor">?attr/textSecondary</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
     

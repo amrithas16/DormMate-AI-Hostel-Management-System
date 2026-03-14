@@ -49,6 +49,16 @@
                 android:text="email@dormmate.com"
                 android:textColor="#AAAACC"
                 android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvStudentCourse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Course - Year"
+                android:textColor="#8888AA"
+                android:textSize="10sp"
+                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout

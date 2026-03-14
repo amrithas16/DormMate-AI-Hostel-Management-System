@@ -48,7 +48,7 @@ public class StudentDashboardActivity extends AppCompatActivity {
             new BentoTile("📜", "Rules", "Hostel rules"),
             new BentoTile("🔍", "Room Finder", "Find a student's room"),
             new BentoTile("🤖", "Chatbot", "AI Assistant"),
-            new BentoTile("📷", "Gate Entry/Exit", "Face scan ML"),
+            new BentoTile("🛡️", "QR Attendance", "Secure check-in"),
             new BentoTile("💬", "Messages", "Chat with others"),
             new BentoTile("👤", "Profile", "My profile"));
 
@@ -123,8 +123,8 @@ public class StudentDashboardActivity extends AppCompatActivity {
             case "Chatbot":
                 startActivity(new android.content.Intent(this, com.example.dormmate.ui.ChatbotActivity.class));
                 break;
-            case "Gate Entry/Exit":
-                startActivity(new android.content.Intent(this, FaceScanPlaceholderActivity.class));
+            case "QR Attendance":
+                startActivity(new android.content.Intent(this, StudentAttendanceActivity.class));
                 break;
             case "Messages":
                 startActivity(new android.content.Intent(this, com.example.dormmate.ui.ChatListActivity.class));

@@ -42,13 +42,13 @@
 
             <EditText android:id="@+id/etBroadcastTitle"
                 android:layout_width="match_parent" android:layout_height="48dp"
-                android:background="@drawable/bg_bento_tile"
+                android:background="@drawable/bg_glass_input"
                 android:hint="Title" android:textColor="#FFFFFF" android:textColorHint="#7B7B9D"
                 android:paddingHorizontal="12dp" android:textSize="14sp" android:layout_marginBottom="10dp" />
 
             <EditText android:id="@+id/etBroadcastMessage"
                 android:layout_width="match_parent" android:layout_height="100dp"
-                android:background="@drawable/bg_bento_tile"
+                android:background="@drawable/bg_glass_input"
                 android:hint="Message to students..." android:textColor="#FFFFFF" android:textColorHint="#7B7B9D"
                 android:inputType="textMultiLine" android:gravity="top"
                 android:paddingHorizontal="12dp" android:paddingVertical="8dp"
@@ -75,7 +75,7 @@
 
             <EditText android:id="@+id/etFloorNumber"
                 android:layout_width="match_parent" android:layout_height="48dp"
-                android:background="@drawable/bg_bento_tile"
+                android:background="@drawable/bg_glass_input"
                 android:hint="Floor number (e.g. 2)" android:textColor="#FFFFFF" android:textColorHint="#7B7B9D"
                 android:inputType="number" android:paddingHorizontal="12dp"
                 android:textSize="14sp" android:layout_marginBottom="12dp"

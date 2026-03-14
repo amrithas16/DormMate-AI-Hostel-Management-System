@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_aurora"
+    tools:context=".ui.student.PaymentGatewayActivity">
+
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/llHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="24dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="4dp"
+            android:src="@android:drawable/ic_menu_revert"
+            app:tint="#FFFFFF" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Secure Payment"
+            android:textColor="?attr/textPrimary"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llHeader">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- Virtual Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="32dp"
+                app:cardBackgroundColor="#20FFFFFF"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="24dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Debit Card"
+                        android:textColor="#B3FFFFFF"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_alignParentEnd="true"
+                        android:src="@android:drawable/ic_menu_slideshow"
+                        app:tint="#FFFFFF" />
+
+                    <TextView
+                        android:id="@+id/tvCardNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="monospace"
+                        android:text="**** **** **** ****"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:letterSpacing="0.1" />
+
+                    <TextView
+                        android:id="@+id/tvCardHolder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:text="CARD HOLDER NAME"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp"
+                        android:textAllCaps="true" />
+
+                    <TextView
+                        android:id="@+id/tvExpiry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:text="MM/YY"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Card Inputs -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_glass_card"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Card Details"
+                    android:textColor="?attr/textPrimary"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="16dp" />
+
+                <EditText
+                    android:id="@+id/etCardNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_glass_input"
+                    android:hint="Card Number"
+                    android:inputType="number"
+                    android:maxLength="19"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#99FFFFFF" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etExpiry"
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_glass_input"
+                        android:hint="MM/YY"
+                        android:inputType="date"
+                        android:paddingHorizontal="16dp"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#99FFFFFF" />
+
+                    <EditText
+                        android:id="@+id/etCvv"
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_glass_input"
+                        android:hint="CVV"
+                        android:inputType="numberPassword"
+                        android:maxLength="3"
+                        android:paddingHorizontal="16dp"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#99FFFFFF" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvAmountToPay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                android:text="Amount to Pay: ₹0"
+                android:textColor="?attr/textPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnPay"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/bg_button_violet"
+                android:text="CONFIRM PAYMENT"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Secure Footer -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🔒" android:textSize="14sp" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=" 256-bit SSL Secure Payment" android:textColor="#B3FFFFFF" android:textSize="12sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Overlay for Success/Processing -->
+    <FrameLayout
+        android:id="@+id/overlayProcessing"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E60D0D2B"
+        android:visibility="gone"
+        android:elevation="10dp"
+        android:gravity="center">
+        
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+            
+            <ProgressBar
+                android:id="@+id/pbProcessing"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:indeterminateTint="#7C4DFF" />
+                
+            <TextView
+                android:id="@+id/tvStatusMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Processing Payment..."
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/ivSuccess"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@android:drawable/checkbox_on_background"
+                app:tint="#4CAF50"
+                android:visibility="gone" />
+        </LinearLayout>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

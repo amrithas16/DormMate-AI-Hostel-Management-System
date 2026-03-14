@@ -108,6 +108,180 @@
                 android:enabled="false"
                 android:layout_marginBottom="16dp" />
 
+            <!-- Phone Number -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone Number"
+                android:textColor="#B39DDB"
+                android:textSize="12sp"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/etProfilePhone"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_bento_tile"
+                android:hint="Enter phone number"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#7B7B9D"
+                android:inputType="phone"
+                android:paddingHorizontal="12dp"
+                android:textSize="15sp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Age & DOB -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="vertical">
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Age"
+                        android:textColor="#B39DDB"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="4dp" />
+                        
+                    <EditText
+                        android:id="@+id/etProfileAge"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_bento_tile"
+                        android:hint="Age"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#7B7B9D"
+                        android:inputType="number"
+                        android:paddingHorizontal="12dp"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:orientation="vertical">
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date of Birth"
+                        android:textColor="#B39DDB"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="4dp" />
+                        
+                    <EditText
+                        android:id="@+id/etProfileDOB"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_bento_tile"
+                        android:hint="DD/MM/YYYY"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#7B7B9D"
+                        android:inputType="date"
+                        android:paddingHorizontal="12dp"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Course & Year/Sem -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="vertical">
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Course"
+                        android:textColor="#B39DDB"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="4dp" />
+                        
+                    <EditText
+                        android:id="@+id/etProfileCourse"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_bento_tile"
+                        android:hint="e.g. B.Tech CS"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#7B7B9D"
+                        android:inputType="text"
+                        android:paddingHorizontal="12dp"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:orientation="vertical">
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Year / Sem"
+                        android:textColor="#B39DDB"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="4dp" />
+                        
+                    <EditText
+                        android:id="@+id/etProfileYearSem"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_bento_tile"
+                        android:hint="e.g. Year 2"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#7B7B9D"
+                        android:inputType="text"
+                        android:paddingHorizontal="12dp"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Parents Details -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Parents Details (Name &amp; Contact)"
+                android:textColor="#B39DDB"
+                android:textSize="12sp"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/etProfileParentsDetails"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@drawable/bg_bento_tile"
+                android:hint="Parent's Name &amp; Phone"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#7B7B9D"
+                android:inputType="textMultiLine"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                android:gravity="top"
+                android:textSize="15sp"
+                android:layout_marginBottom="16dp" />
+
             <!-- Address -->
             <TextView
                 android:layout_width="wrap_content"

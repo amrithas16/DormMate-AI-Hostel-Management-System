@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="auroraStart" format="color" />
+    <attr name="auroraMid" format="color" />
+    <attr name="auroraEnd" format="color" />
+    <attr name="glassCardBg" format="color" />
+    <attr name="cardStroke" format="color" />
+    <attr name="textPrimary" format="color" />
+    <attr name="textSecondary" format="color" />
+    <attr name="surfaceColor" format="color" />
+</resources>

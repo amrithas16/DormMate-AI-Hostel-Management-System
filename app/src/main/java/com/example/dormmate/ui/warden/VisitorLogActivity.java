@@ -12,6 +12,9 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import android.content.Intent;
+import android.util.Log;
+import com.example.dormmate.ui.warden.FaceNetHelper;
 
 public class VisitorLogActivity extends AppCompatActivity {
 
@@ -20,6 +23,9 @@ public class VisitorLogActivity extends AppCompatActivity {
     private final List<DocumentSnapshot> visitors = new ArrayList<>();
     private FirebaseFirestore db;
     private ListenerRegistration visitorListener;
+
+    private static final int REQUEST_FACE_SCAN = 1001;
+    private float[] currentEmbedding = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +39,28 @@ public class VisitorLogActivity extends AppCompatActivity {
 
         findViewById(R.id.tvVisitorBack).setOnClickListener(v -> finish());
         findViewById(R.id.btnRegisterVisitor).setOnClickListener(v -> registerVisitor());
-        findViewById(R.id.btnCaptureFace).setOnClickListener(
-                v -> Toast.makeText(this, "Face capture module pending", Toast.LENGTH_SHORT).show());
+        
+        findViewById(R.id.btnCaptureFace).setOnClickListener(v -> {
+            Intent intent = new Intent(this, FaceScanActivity.class);
+            startActivityForResult(intent, REQUEST_FACE_SCAN);
+        });
 
-        adapter = new VisitorAdapter();
+        // Handle Dashboard Intents
+        if (getIntent().hasExtra("SHOW_HISTORY_ONLY")) {
+            findViewById(R.id.btnRegisterVisitor).setVisibility(android.view.View.GONE);
+            findViewById(R.id.btnCaptureFace).setVisibility(android.view.View.GONE);
+            ((TextView)findViewById(R.id.tvVisitorBack)).setText("← Logs Dashboard");
+        }
+
+        if (getIntent().hasExtra("PRE_SCANNED_EMBEDDING")) {
+            float[] preScanned = getIntent().getFloatArrayExtra("PRE_SCANNED_EMBEDDING");
+            if (preScanned != null) {
+                currentEmbedding = preScanned;
+                checkIfReturningVisitor(preScanned);
+            }
+        }
+
+        adapter = new VisitorAdapter(this, visitors, db);
         rvVisitors.setAdapter(adapter);
         listenVisitors();
     }
@@ -57,14 +81,109 @@ public class VisitorLogActivity extends AppCompatActivity {
         visitor.put("phone", phone);
         visitor.put("visitingStudent", visiting);
         visitor.put("purpose", purpose);
-        visitor.put("timestamp", Timestamp.now());
+        Timestamp entryTime = Timestamp.now();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(entryTime.toDate());
+        cal.add(Calendar.HOUR, 1);
+        Timestamp expectedExit = new Timestamp(cal.getTime());
 
-        db.collection("visitor_log").add(visitor)
+        visitor.put("entry_time", entryTime);
+        visitor.put("expected_exit_time", expectedExit);
+        visitor.put("status", "active");
+
+        if (currentEmbedding != null) {
+            // Convert float[] to List<Double> for Firestore storage
+            List<Double> embeddingList = new ArrayList<>();
+            for (float f : currentEmbedding) {
+                embeddingList.add((double) f);
+            }
+            visitor.put("face_embedding", embeddingList);
+        }
+
+        db.collection("visitor_logs").add(visitor)
                 .addOnSuccessListener(ref -> {
+                    // Update/Create Visitor Profile
+                    Map<String, Object> profile = new HashMap<>();
+                    profile.put("name", name);
+                    profile.put("phone", phone);
+                    if (currentEmbedding != null) {
+                        List<Double> embeddingList = new ArrayList<>();
+                        for (float f : currentEmbedding) embeddingList.add((double) f);
+                        profile.put("face_embedding", embeddingList);
+                    }
+                    db.collection("visitors").document(phone).set(profile);
+
                     Toast.makeText(this, "✅ Visitor Registered", Toast.LENGTH_SHORT).show();
+                    
+                    // 1. Schedule 1 Hour Background Alarm
+                    androidx.work.Data inputData = new androidx.work.Data.Builder()
+                            .putString("visitorLogId", ref.getId())
+                            .putString("visitorName", name)
+                            .putString("visitorStudent", visiting)
+                            .build();
+
+                    androidx.work.OneTimeWorkRequest timerWork = new androidx.work.OneTimeWorkRequest.Builder(com.example.dormmate.ui.warden.VisitorTimerWorker.class)
+                            .setInitialDelay(1, java.util.concurrent.TimeUnit.HOURS)
+                            .setInputData(inputData)
+                            .addTag(ref.getId())
+                            .build();
+
+                    androidx.work.WorkManager.getInstance(this).enqueue(timerWork);
+
+                    // 2. Launch Visitor Badge
+                    Intent badgeIntent = new Intent(this, VisitorBadgeActivity.class);
+                    badgeIntent.putExtra("visitorName", name);
+                    badgeIntent.putExtra("visitorPhone", phone);
+                    badgeIntent.putExtra("visitorLogId", ref.getId());
+                    startActivity(badgeIntent);
+                    
                     clearInputs();
+                    currentEmbedding = null;
                 })
                 .addOnFailureListener(e -> Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_FACE_SCAN && resultCode == RESULT_OK && data != null) {
+            float[] embedding = data.getFloatArrayExtra("face_embedding");
+            if (embedding != null) {
+                currentEmbedding = embedding;
+                Toast.makeText(this, "Face Captured successfully!", Toast.LENGTH_SHORT).show();
+                checkIfReturningVisitor(embedding);
+            }
+        }
+    }
+
+    private void checkIfReturningVisitor(float[] newEmbedding) {
+        // Fetch last 50 distinct visitors (or keep an offline cache in a real app)
+        db.collection("visitor_logs")
+                .orderBy("entry_time", Query.Direction.DESCENDING)
+                .limit(50)
+                .get()
+                .addOnSuccessListener(snapshots -> {
+                    for (DocumentSnapshot doc : snapshots) {
+                        List<Double> storedObj = (List<Double>) doc.get("face_embedding");
+                        if (storedObj != null) {
+                            float[] storedEmbedding = new float[storedObj.size()];
+                            for (int i = 0; i < storedObj.size(); i++) {
+                                storedEmbedding[i] = storedObj.get(i).floatValue();
+                            }
+                            
+                            float similarity = FaceNetHelper.cosineSimilarity(newEmbedding, storedEmbedding);
+                            if (similarity > 0.7f) {
+                                // Match found!
+                                Toast.makeText(this, "Returning Visitor Recognized!", Toast.LENGTH_LONG).show();
+                                ((EditText) findViewById(R.id.etVisitorName)).setText(doc.getString("name"));
+                                ((EditText) findViewById(R.id.etVisitorPhone)).setText(doc.getString("phone"));
+                                ((EditText) findViewById(R.id.etVisitingStudent)).setText(doc.getString("visitingStudent"));
+                                ((EditText) findViewById(R.id.etVisitPurpose)).setText(doc.getString("purpose"));
+                                return;
+                            }
+                        }
+                    }
+                });
     }
 
     private void clearInputs() {
@@ -75,8 +194,8 @@ public class VisitorLogActivity extends AppCompatActivity {
     }
 
     private void listenVisitors() {
-        visitorListener = db.collection("visitor_log")
-                .orderBy("timestamp", Query.Direction.DESCENDING)
+        visitorListener = db.collection("visitor_logs")
+                .orderBy("entry_time", Query.Direction.DESCENDING)
                 .limit(50)
                 .addSnapshotListener((snapshots, e) -> {
                     if (e != null || snapshots == null)
@@ -94,52 +213,4 @@ public class VisitorLogActivity extends AppCompatActivity {
             visitorListener.remove();
     }
 
-    class VisitorAdapter extends RecyclerView.Adapter<VisitorAdapter.VH> {
-        @NonNull
-        @Override
-        public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_visitor, parent, false);
-            return new VH(v);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull VH holder, int position) {
-            DocumentSnapshot doc = visitors.get(position);
-            holder.tvName.setText(doc.getString("name"));
-            holder.tvPhone.setText(doc.getString("phone") != null ? doc.getString("phone") : "");
-            holder.tvVisiting.setText(
-                    "Visiting: " + (doc.getString("visitingStudent") != null ? doc.getString("visitingStudent") : "—"));
-            Timestamp ts = doc.getTimestamp("timestamp");
-            if (ts != null) {
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm, dd MMM", Locale.getDefault());
-                holder.tvTime.setText(sdf.format(ts.toDate()));
-            }
-
-            // Mock an Overstay Alert for the first item in the list as a demo
-            if (position == 0) {
-                holder.tvOverstayAlert.setVisibility(View.VISIBLE);
-            } else {
-                holder.tvOverstayAlert.setVisibility(View.GONE);
-            }
-        }
-
-        @Override
-        public int getItemCount() {
-            return visitors.size();
-        }
-
-        class VH extends RecyclerView.ViewHolder {
-            TextView tvName, tvPhone, tvVisiting, tvTime, tvOverstayAlert;
-
-            VH(@NonNull View view) {
-                super(view);
-                tvName = view.findViewById(R.id.tvVisitorName);
-                tvPhone = view.findViewById(R.id.tvVisitorPhone);
-                tvVisiting = view.findViewById(R.id.tvVisitingStudent);
-                tvTime = view.findViewById(R.id.tvVisitTime);
-                tvOverstayAlert = view.findViewById(R.id.tvOverstayAlert);
-            }
-        }
-    }
 }

@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dashboard"
-            android:textColor="@color/white"
+            android:textColor="?attr/textPrimary"
             android:textSize="15sp"
             android:textStyle="bold"
             android:gravity="center"/>
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tap to open"
-            android:textColor="#AAFFFFFF"
+            android:textColor="?attr/textSecondary"
             android:textSize="11sp"
             android:gravity="center"
             android:visibility="visible"/>

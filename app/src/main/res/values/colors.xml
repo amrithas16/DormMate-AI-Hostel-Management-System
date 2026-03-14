@@ -8,15 +8,26 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- Aurora Colors -->
+    <!-- Day Mode Colors -->
+    <color name="day_bg_start">#F5F7FA</color>
+    <color name="day_bg_mid">#E8EBF2</color>
+    <color name="day_bg_end">#DDE2EF</color>
+    <color name="day_glass_bg">#D9FFFFFF</color>
+    <color name="day_glass_border">#4D1A1A2E</color>
+    <color name="day_text_primary">#1A1A2E</color>
+    <color name="day_text_secondary">#4A4A6A</color>
+
+    <!-- Night Mode Colors -->
+    <color name="night_bg_start">#0F0C29</color>
+    <color name="night_bg_mid">#302B63</color>
+    <color name="night_bg_end">#24243E</color>
+    <color name="night_glass_bg">#1AFFFFFF</color>
+    <color name="night_glass_border">#33FFFFFF</color>
+    <color name="night_text_primary">#FFFFFF</color>
+    <color name="night_text_secondary">#B3FFFFFF</color>
+
+    <!-- Brands -->
     <color name="deep_indigo">#1A1A2E</color>
     <color name="electric_violet">#6C63FF</color>
     <color name="neon_cyan">#00F0FF</color>
-    <color name="translucent_white">#1AFFFFFF</color> <!-- 10% White -->
-    <color name="glass_border">#33FFFFFF</color> <!-- 20% White -->
-    
-    <!-- Gradient Colors -->
-    <color name="aurora_start">#0F0C29</color>
-    <color name="aurora_mid">#302B63</color>
-    <color name="aurora_end">#24243E</color>
 </resources>

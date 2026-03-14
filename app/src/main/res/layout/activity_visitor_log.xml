@@ -52,26 +52,26 @@
 
             <EditText android:id="@+id/etVisitorName"
                 android:layout_width="match_parent" android:layout_height="48dp"
-                android:background="@drawable/bg_bento_tile"
+                android:background="@drawable/bg_glass_input"
                 android:hint="Visitor Name" android:textColor="#FFFFFF" android:textColorHint="#7B7B9D"
                 android:paddingHorizontal="12dp" android:textSize="14sp" android:layout_marginBottom="10dp" />
 
             <EditText android:id="@+id/etVisitorPhone"
                 android:layout_width="match_parent" android:layout_height="48dp"
-                android:background="@drawable/bg_bento_tile"
+                android:background="@drawable/bg_glass_input"
                 android:hint="Phone Number" android:textColor="#FFFFFF" android:textColorHint="#7B7B9D"
                 android:inputType="phone" android:paddingHorizontal="12dp" android:textSize="14sp"
                 android:layout_marginBottom="10dp" />
 
             <EditText android:id="@+id/etVisitingStudent"
                 android:layout_width="match_parent" android:layout_height="48dp"
-                android:background="@drawable/bg_bento_tile"
+                android:background="@drawable/bg_glass_input"
                 android:hint="Visiting Student (Name/Room)" android:textColor="#FFFFFF" android:textColorHint="#7B7B9D"
                 android:paddingHorizontal="12dp" android:textSize="14sp" android:layout_marginBottom="10dp" />
 
             <EditText android:id="@+id/etVisitPurpose"
                 android:layout_width="match_parent" android:layout_height="48dp"
-                android:background="@drawable/bg_bento_tile"
+                android:background="@drawable/bg_glass_input"
                 android:hint="Purpose of Visit" android:textColor="#FFFFFF" android:textColorHint="#7B7B9D"
                 android:paddingHorizontal="12dp" android:textSize="14sp" android:layout_marginBottom="12dp" />
 

@@ -42,5 +42,16 @@
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:text="🚨 Overstay Alert" android:textColor="#EF5350" android:textSize="10sp"
             android:textStyle="bold" android:visibility="gone" android:layout_marginTop="4dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnExit"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#2D2B55"
+            android:text="Mark Exit"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="10sp" />
     </LinearLayout>
 </LinearLayout>

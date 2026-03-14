@@ -60,7 +60,21 @@
             android:exported="false"
             android:label="Chat Room" />
 
+        <activity
+            android:name=".ui.student.PaymentGatewayActivity"
+            android:exported="false"
+            android:label="Payment Gateway" />
+
+        <activity
+            android:name=".ui.student.StudentAttendanceActivity"
+            android:exported="false"
+            android:label="QR Attendance" />
+
         <!-- Warden Module -->
+        <activity
+            android:name=".ui.warden.WardenFeeGenerationActivity"
+            android:exported="false"
+            android:label="Fee Generation" />
         <activity
             android:name=".ui.warden.WardenDashboardActivity"
             android:exported="false"
@@ -82,9 +96,21 @@
             android:exported="false"
             android:label="Complaints" />
         <activity
+            android:name=".ui.warden.VisitorManagementActivity"
+            android:exported="false"
+            android:label="Visitor Management" />
+        <activity
             android:name=".ui.warden.VisitorLogActivity"
             android:exported="false"
             android:label="Visitor Log" />
+        <activity
+            android:name=".ui.warden.FaceScanActivity"
+            android:exported="false"
+            android:label="Face Scan" />
+        <activity
+            android:name=".ui.warden.VisitorBadgeActivity"
+            android:exported="false"
+            android:label="Visitor Security Badge" />
         <activity
             android:name=".ui.warden.BroadcastActivity"
             android:exported="false"
@@ -93,6 +119,10 @@
             android:name=".ui.warden.WardenRulesActivity"
             android:exported="false"
             android:label="Manage Rules" />
+        <activity
+            android:name=".ui.warden.AttendanceQRActivity"
+            android:exported="false"
+            android:label="Secure Attendance QR" />
         <activity
             android:name=".ui.admin.AdminActivity"
             android:exported="false"
@@ -103,6 +133,14 @@
             android:name=".ui.warden.EmergencyAlertService"
             android:exported="false"
             android:foregroundServiceType="dataSync" />
+
+        <receiver
+            android:name=".ui.warden.VisitorActionReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="MARK_EXIT" />
+            </intent-filter>
+        </receiver>
 
     </application>
 
